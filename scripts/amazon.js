@@ -1,31 +1,3 @@
-/*products = [
-  {
-  image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-
- name:  "Black and Gray Athletic Cotton Socks - 6 PerformanceObserverEntryList",
-
- rating :{
-  stars:"images/ratings/rating-45.png",
-  count:"87"
- },
-
- priceCents : "1090"
-},
-
-{
-  image: "images/products/intermediate-composite-basketball.jpg",
-
- name:  " Intermediate Size Basketball",
-
- rating :{
-  stars:"images/ratings/rating-40.png",
-  count:"127"
- },
-
- priceCents : "2095"
-}
-]
-*/
 
 let productsHTML = '';
 
@@ -76,11 +48,64 @@ productsHTML += `<div class="product-container">
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id = ${product.id}>
             Add to Cart
           </button>
         </div>`
 }
 );
 
+
+/*so here, is the code for adding data in our cart
+
+1)we select add to cart button ny DOM
+2)we make add to cart button go through loop using forEach and querySelectorAll
+
+3)we assign the productId using |data-| attribute of HTML, (the kebab case turns into camelCase)
+
+4)before going to if loop, we check whether the productId is in the cart array, if its present, we assign the object item
+
+5)now if matchingItem has the object, its quantity will increase and if matchingItem doesnt have object,it will show falsy value and push the object in the cart
+
+*/ 
+
+
 document.querySelector('.js-product-grid').innerHTML = productsHTML;
+
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+button.addEventListener('click', () =>
+{
+  const productId = button.dataset.productId;
+
+
+
+
+  let matchingItem;
+
+
+  cart.forEach((item) => {
+    if (productId === item.productId)
+    {
+      matchingItem = item;
+    }
+  });
+
+
+  if(matchingItem)
+  {
+    matchingItem.quantity += 1;
+  }
+  else
+  {
+    cart.push(
+      {
+        productId: productId,
+        quantity:1
+      });
+  }
+
+
+  console.log(cart);
+});
+
+});
