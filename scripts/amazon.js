@@ -1,7 +1,10 @@
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 //import {cart as myCart} from '../data/cart.js'; can be used to avoid naming conflicts 
 
 import {products} from '../data/products.js';
+
+
+
 
 let productsHTML = '';
 
@@ -60,6 +63,8 @@ productsHTML += `<div class="product-container">
 );
 
 
+document.querySelector('.js-product-grid').innerHTML = productsHTML;
+
 /*so here, is the code for adding data in our cart
 
 1)we select add to cart button ny DOM
@@ -70,46 +75,15 @@ productsHTML += `<div class="product-container">
 4)before going to if loop, we check whether the productId is in the cart array, if its present, we assign the object item
 
 5)now if matchingItem has the object, its quantity will increase and if matchingItem doesnt have object,it will show falsy value and push the object in the cart
-
+ 
+6) see the above function addToCart() in cart.js file
 */ 
 
 
-document.querySelector('.js-product-grid').innerHTML = productsHTML;
 
-document.querySelectorAll('.js-add-to-cart').forEach((button) => {
-button.addEventListener('click', () =>
+
+function updateCartQuanrity()
 {
-  const productId = button.dataset.productId;
-
-
-
-
-  let matchingItem;
-
-
-  cart.forEach((item) => {
-    if (productId === item.productId)
-    {
-      matchingItem = item;
-    }
-  });
-
-
-  if(matchingItem)
-  {
-    matchingItem.quantity += 1;
-  }
-  else
-  {
-    cart.push(
-      {
-        productId: productId,
-        quantity:1
-      });
-  }
-
-
-  // we updated cart quantity in our project
   let cartQuantity = 0;
 
   cart.forEach((item)=> {
@@ -120,6 +94,15 @@ button.addEventListener('click', () =>
 
   console.log(cartQuantity);
   console.log(cart);
+}
+
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+button.addEventListener('click', () =>
+{
+  const productId = button.dataset.productId;
+  addToCart(productId);
+ 
+  updateCartQuanrity();  // we updated cart quantity in our project
 });
 
 });
