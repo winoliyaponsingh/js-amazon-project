@@ -2,8 +2,7 @@ import {cart, addToCart} from '../data/cart.js';
 //import {cart as myCart} from '../data/cart.js'; can be used to avoid naming conflicts 
 
 import {products} from '../data/products.js';
-
-
+import { formattingCurrency } from './utils/money.js';
 
 
 let productsHTML = '';
@@ -30,7 +29,7 @@ productsHTML += `<div class="product-container">
          
 
           <div class="product-price">
-          ${(product.priceCents / 100).toFixed(2)}
+          $${formattingCurrency(product.priceCents)}
           </div>
 
           <div class="product-quantity-container">
