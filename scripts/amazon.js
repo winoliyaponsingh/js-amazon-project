@@ -1,7 +1,7 @@
 import {cart} from '../data/cart.js';
 //import {cart as myCart} from '../data/cart.js'; can be used to avoid naming conflicts 
 
-
+import {products} from '../data/products.js';
 
 let productsHTML = '';
 
